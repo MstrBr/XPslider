@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xircus XP Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: transparent; /* Removed background gradient */
+        }
+        .converter {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #FF6A1D, #F800FF);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 400px;
+        }
+        h2 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .input-group {
+            margin: 20px 0;
+        }
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter">
+        <h2>Xircus XP Converter</h2>
+        <div class="input-group">
+            <input type="range" id="xpInput" min="0" max="10000000" value="0" step="1000" oninput="convertXP()">
+        </div>
+        <div class="result" id="result">Move the slider to see values!</div>
+    </div>
+
+    <script>
+        function convertXP() {
+            const xpInput = document.getElementById('xpInput');
+            const result = document.getElementById('result');
+
+            let xp = parseInt(xpInput.value);
+
+            const xw3 = Math.floor(xp / 1000); // 1000 XP = 1 \$XW3, no decimals
+            const usd = Math.floor(xw3 * 0.05); // 1 \$XW3 = $0.05, no decimals
+
+            const formattedXP = xp.toLocaleString();
+            const formattedXW3 = xw3.toLocaleString();
+            const formattedUSD = usd.toLocaleString();
+
+            result.innerHTML = `
+                <p><strong>XP:</strong> ${formattedXP}</p>
+                <p><strong>\$XW3:</strong> ${formattedXW3} \$XW3</p>
+                <p><strong>USD:</strong> $${formattedUSD}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
